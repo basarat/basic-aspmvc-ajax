@@ -1,0 +1,59 @@
+﻿@model MvcApplication1.Controllers.Reasonable
+
+@{
+    ViewBag.Title = "SomeAction";
+}
+
+<script>
+    $(function () {
+        $("form").submit(function (e) {
+            e.preventDefault();
+            var data = $("form").serialize();
+            console.log(data);
+            $.post("/Home/SomeAction",data)
+                .done(function (ret) { alert(ret.asdf); });
+        });
+    })
+</script>
+
+<h2>SomeAction</h2>
+
+
+
+
+<form action="/Home/SomeAction" method="post" novalidate="novalidate">
+
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Reasonable</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StringProp)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.StringProp)
+            @Html.ValidationMessageFor(model => model.StringProp)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NumberProp)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NumberProp)
+            @Html.ValidationMessageFor(model => model.NumberProp)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+</form>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
